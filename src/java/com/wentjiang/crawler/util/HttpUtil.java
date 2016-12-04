@@ -15,10 +15,24 @@ import java.io.InputStreamReader;
  * Created by wentjiang on 2016/12/3.
  */
 public class HttpUtil {
-    public static String get(String url) {
-        String result;
+    public static String httpGet(String url) {
+        String result = null;
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
+        result = getResult(httpClient, httpGet);
+        return result;
+    }
+
+    public static String httpsGet(String url) {
+        String result = null;
+        CloseableHttpClient httpClient = SSLUtil.createSSLInsecureClient();
+        HttpGet httpGet = new HttpGet(url);
+        result = getResult(httpClient, httpGet);
+        return result;
+    }
+
+    private static String getResult(CloseableHttpClient httpClient, HttpGet httpGet) {
+        String result = null;
         try {
             CloseableHttpResponse response = httpClient.execute(httpGet);
             if (response != null && response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
@@ -37,9 +51,9 @@ public class HttpUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return "";
+        return result;
     }
+
 
     private static String readResponse(HttpEntity resEntity, String charset) {
         StringBuilder res = new StringBuilder();
