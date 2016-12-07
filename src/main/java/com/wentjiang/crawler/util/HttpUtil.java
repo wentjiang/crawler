@@ -55,7 +55,7 @@ public class HttpUtil {
     }
 
 
-    private static String readResponse(HttpEntity resEntity, String charset) {
+    public static String readResponse(HttpEntity resEntity, String charset) {
         StringBuilder res = new StringBuilder();
         BufferedReader reader = null;
         if (resEntity == null) {

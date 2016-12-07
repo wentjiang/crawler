@@ -13,6 +13,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.config.*;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -84,7 +85,7 @@ public class HttpClientPool {
         this.initHttpsCertClient();
     }
 
-    public  HttpClientPool(int maxConnection, int maxConnectionPerRoute, int httpsMaxConnection, int httpsMaxConnectionPerRoute, String httpsCertFilePath, String httpsCertKeystoreType, String httpsCertPasswd, int keepAliveMillSec) {
+    public HttpClientPool(int maxConnection, int maxConnectionPerRoute, int httpsMaxConnection, int httpsMaxConnectionPerRoute, String httpsCertFilePath, String httpsCertKeystoreType, String httpsCertPasswd, int keepAliveMillSec) {
         this.initConfig(maxConnection, maxConnectionPerRoute, httpsMaxConnection, httpsMaxConnectionPerRoute, httpsCertFilePath, httpsCertKeystoreType, httpsCertPasswd, keepAliveMillSec);
         this.initHttpClient();
         this.initHttpsCertClient();
@@ -165,6 +166,8 @@ public class HttpClientPool {
             DefaultConnectionKeepAliveStrategy keepAliveStrategy = getDefaultConnectionKeepAliveStrategy();
             this.httpConnManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
             this.httpClient = HttpClients.custom().setConnectionManager(this.httpConnManager).setKeepAliveStrategy(keepAliveStrategy).build();
+            //增加httpClient代理
+//            httpClient.getParams().setParameter(ConnRouteParams.LOCAL_ADDRESS,"1.1.1.1");
             SocketConfig socketConfig = SocketConfig.custom().setTcpNoDelay(true).setSoKeepAlive(true).setSoReuseAddress(true).build();
             this.httpConnManager.setDefaultSocketConfig(socketConfig);
             MessageConstraints messageConstraints = MessageConstraints.custom().setMaxHeaderCount(200).setMaxLineLength(2000).build();
@@ -445,6 +448,8 @@ public class HttpClientPool {
                     Map.Entry<String, String> statusCode = var25.next();
                     var23.setHeader(statusCode.getKey(), statusCode.getValue());
                 }
+            } else {
+                setDefaultHeaders(var23);
             }
 
             try {
@@ -535,5 +540,15 @@ public class HttpClientPool {
 
             return responseContent;
         }
+    }
+
+    private void setDefaultHeaders(HttpRequestBase method) {
+        method.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;");
+        method.setHeader("Accept-Language", "zh-cn");
+        method.setHeader("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3");
+        method.setHeader("Accept-Charset", "utf-8");
+        method.setHeader("Keep-Alive", "300");
+        method.setHeader("Connection", "Keep-Alive");
+        method.setHeader("Cache-Control", "no-cache");
     }
 }
