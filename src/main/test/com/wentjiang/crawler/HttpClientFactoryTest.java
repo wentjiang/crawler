@@ -1,4 +1,4 @@
-package com.wentjiang;
+package com.wentjiang.crawler;
 
 import com.wentjiang.crawler.http.HttpClientFactory;
 

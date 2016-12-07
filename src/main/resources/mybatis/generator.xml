@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <properties resource="mybatis/generatorConfig.properties"/>
+
+    <context id="context1"
+             targetRuntime="com.wanmei.sys.core.support.mybatis.IntrospectedTableMyBatis3OverWriteableImpl"
+             defaultModelType="flat">
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="com.wanmei.sys.core.support.mybatis.KeyPropertyPlugin"/>
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+            <!-- 当字段包含数据库关键字的时候自动加上引号 -->
+            <!--<property name="autoDelimitKeywords" value="true"/>-->
+        </commentGenerator>
+        <jdbcConnection driverClass="${jdbc_driver}"
+                        connectionURL="${jdbc_url}"
+                        userId="${jdbc_username}"
+                        password="${jdbc_password}"/>
+        <!--  默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer
+            true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal
+        -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="${modelPackage}" targetProject="${targetProject}">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="${sqlMapperPackage}" targetProject="${targetProject}"/>
+
+        <javaClientGenerator targetPackage="${daoMapperPackage}" targetProject="${targetProject}" type="XMLMAPPER"/>
+
+        <!-- table info -->
+        <table tableName="db_book" domainObjectName="Book">
+            <property name="keyProperty" value="id"/>
+        </table>
+
+        <table tableName="db_book_tag" domainObjectName="BookTag">
+            <property name="keyProperty" value="id"/>
+        </table>
+
+        <table tableName="db_book_tag_mapping" domainObjectName="BookBookTag">
+            <property name="keyProperty" value="book_id"/>
+            <property name="keyProperty" value="book_tag_id"/>
+        </table>
+    </context>
+</generatorConfiguration>

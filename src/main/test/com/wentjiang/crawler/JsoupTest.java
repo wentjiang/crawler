@@ -1,4 +1,4 @@
-package com.wentjiang;
+package com.wentjiang.crawler;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

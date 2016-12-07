@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 扫描非Controller组件 -->
+    <context:component-scan base-package="com.wanmei.comment">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <!-- 配置aspectj -->
+    <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true"/>
+
+    <!--hessian工厂-->
+    <bean id="captchaService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="http://captchas.wanmei.com/remote/variousCaptchaService" />
+        <property name="serviceInterface" value="com.wanmei.captchas.remote.VariousCaptchaService" />
+        <!-- By default the value is false. As a matter of fact, it doesn't influence the test result, the overloaded method still be supported -->
+        <property name="overloadEnabled" value="false" />
+    </bean>
+    <!--验证码验证工具-->
+    <bean id="captchasUtil" class="com.wanmei.comment.util.CaptchasUtils">
+        <property name="captchasAppId" value="${captchas.appId}"/>
+        <property name="appKey" value="${captchas.appKey}"/>
+        <property name="captchaService" ref="captchaService"/>
+    </bean>
+</beans>

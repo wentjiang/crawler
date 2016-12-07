@@ -102,7 +102,7 @@ public class WanmeiGetter {
             if ((a.text().equals("1920x1080")||a.text().equals("1920x1200")) && !StringUtil.isBlank(wallUrl)) {
                 //执行下载逻辑
                 try {
-                    DownloadUtil.get(wallUrl);
+                    DownloadUtil.get(wallUrl,"zxwall");
                 }catch (Exception e){
                     System.out.println(e.getMessage());
                 }

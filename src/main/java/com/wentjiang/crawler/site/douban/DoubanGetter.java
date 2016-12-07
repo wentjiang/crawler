@@ -28,7 +28,7 @@ public class DoubanGetter {
             Matcher matcher = pattern.matcher(imgSrc);
             if (matcher.find()) {
                 System.out.println(imgSrc);
-                DownloadUtil.get(imgSrc);
+                DownloadUtil.get(imgSrc,"douban");
             }
         }
     }
