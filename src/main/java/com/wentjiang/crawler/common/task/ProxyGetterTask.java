@@ -20,6 +20,5 @@ public class ProxyGetterTask {
             log.info("get proxy address error");
             e.printStackTrace();
         }
-
     }
 }
