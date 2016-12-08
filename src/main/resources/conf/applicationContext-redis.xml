@@ -6,28 +6,23 @@
             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="classpath:redis.properties" />
+    <!--<context:property-placeholder location="classpath:redis.properties" />-->
 
-    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxTotal" value="${redis.maxTotal}"/>
-        <property name="maxIdle" value="${redis.maxIdle}" />
-        <property name="minIdle" value="${redis.minIdle}"/>
-        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
-        <property name="testOnReturn" value="true"/>
-        <property name="testWhileIdle" value="true"/>
-        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
-    </bean>
+    <!--<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
+        <!--<property name="maxTotal" value="${redis.maxTotal}"/>-->
+        <!--<property name="maxIdle" value="${redis.maxIdle}" />-->
+        <!--<property name="minIdle" value="${redis.minIdle}"/>-->
+        <!--<property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>-->
+        <!--<property name="testOnReturn" value="true"/>-->
+        <!--<property name="testWhileIdle" value="true"/>-->
+        <!--<property name="testOnBorrow" value="${redis.testOnBorrow}" />-->
+    <!--</bean>-->
 
-    <!-- redis的连接池pool，不是必选项：timeout/password  -->
-    <bean id = "jedisPool" class="redis.clients.jedis.JedisPool">
-        <constructor-arg index="0" ref="poolConfig"/>
-        <constructor-arg index="1" value="${redis.host}" type="java.lang.String"/>
-        <constructor-arg index="2" value="${redis.port}" type="int"/>
-        <constructor-arg index="3" value="${redis.timeout}" type="int"/>
-    </bean>
-
-    <bean id="cacheClient" class="com.wanmei.comment.cache.CacheClient">
-        <property name="jedisPool" ref="jedisPool"/>
-        <property name="expires" value="10"/>
-    </bean>
+    <!--&lt;!&ndash; redis的连接池pool，不是必选项：timeout/password  &ndash;&gt;-->
+    <!--<bean id = "jedisPool" class="redis.clients.jedis.JedisPool">-->
+        <!--<constructor-arg index="0" ref="poolConfig"/>-->
+        <!--<constructor-arg index="1" value="${redis.host}" type="java.lang.String"/>-->
+        <!--<constructor-arg index="2" value="${redis.port}" type="int"/>-->
+        <!--<constructor-arg index="3" value="${redis.timeout}" type="int"/>-->
+    <!--</bean>-->
 </beans>

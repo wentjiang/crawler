@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wentjiang.crawler.mapper.douban.BookMapper">
+  <resultMap id="BaseResultMap" type="com.wentjiang.crawler.model.douban.Book">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="publishing_house" jdbcType="VARCHAR" property="publishingHouse" />
+    <result column="publish_date" jdbcType="TIMESTAMP" property="publishDate" />
+    <result column="average_star" jdbcType="REAL" property="averageStar" />
+    <result column="start1" jdbcType="REAL" property="start1" />
+    <result column="start2" jdbcType="REAL" property="start2" />
+    <result column="start3" jdbcType="REAL" property="start3" />
+    <result column="start4" jdbcType="REAL" property="start4" />
+    <result column="start5" jdbcType="REAL" property="start5" />
+    <result column="comment_num" jdbcType="INTEGER" property="commentNum" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="describe" jdbcType="VARCHAR" property="describe" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, author, publishing_house, publish_date, average_star, start1, start2, start3, 
+    start4, start5, comment_num, url, describe
+  </sql>
+  <select id="selectByExample" parameterType="com.wentjiang.crawler.model.douban.BookExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from db_book
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from db_book
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from db_book
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wentjiang.crawler.model.douban.BookExample">
+    delete from db_book
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wentjiang.crawler.model.douban.Book">
+    insert into db_book (id, name, author, 
+      publishing_house, publish_date, average_star, 
+      start1, start2, start3, start4, 
+      start5, comment_num, url, 
+      describe)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{publishingHouse,jdbcType=VARCHAR}, #{publishDate,jdbcType=TIMESTAMP}, #{averageStar,jdbcType=REAL}, 
+      #{start1,jdbcType=REAL}, #{start2,jdbcType=REAL}, #{start3,jdbcType=REAL}, #{start4,jdbcType=REAL}, 
+      #{start5,jdbcType=REAL}, #{commentNum,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{describe,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wentjiang.crawler.model.douban.Book">
+    insert into db_book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="publishingHouse != null">
+        publishing_house,
+      </if>
+      <if test="publishDate != null">
+        publish_date,
+      </if>
+      <if test="averageStar != null">
+        average_star,
+      </if>
+      <if test="start1 != null">
+        start1,
+      </if>
+      <if test="start2 != null">
+        start2,
+      </if>
+      <if test="start3 != null">
+        start3,
+      </if>
+      <if test="start4 != null">
+        start4,
+      </if>
+      <if test="start5 != null">
+        start5,
+      </if>
+      <if test="commentNum != null">
+        comment_num,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="describe != null">
+        describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="publishingHouse != null">
+        #{publishingHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="averageStar != null">
+        #{averageStar,jdbcType=REAL},
+      </if>
+      <if test="start1 != null">
+        #{start1,jdbcType=REAL},
+      </if>
+      <if test="start2 != null">
+        #{start2,jdbcType=REAL},
+      </if>
+      <if test="start3 != null">
+        #{start3,jdbcType=REAL},
+      </if>
+      <if test="start4 != null">
+        #{start4,jdbcType=REAL},
+      </if>
+      <if test="start5 != null">
+        #{start5,jdbcType=REAL},
+      </if>
+      <if test="commentNum != null">
+        #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null">
+        #{describe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wentjiang.crawler.model.douban.BookExample" resultType="java.lang.Integer">
+    select count(*) from db_book
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update db_book
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishingHouse != null">
+        publishing_house = #{record.publishingHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishDate != null">
+        publish_date = #{record.publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.averageStar != null">
+        average_star = #{record.averageStar,jdbcType=REAL},
+      </if>
+      <if test="record.start1 != null">
+        start1 = #{record.start1,jdbcType=REAL},
+      </if>
+      <if test="record.start2 != null">
+        start2 = #{record.start2,jdbcType=REAL},
+      </if>
+      <if test="record.start3 != null">
+        start3 = #{record.start3,jdbcType=REAL},
+      </if>
+      <if test="record.start4 != null">
+        start4 = #{record.start4,jdbcType=REAL},
+      </if>
+      <if test="record.start5 != null">
+        start5 = #{record.start5,jdbcType=REAL},
+      </if>
+      <if test="record.commentNum != null">
+        comment_num = #{record.commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.describe != null">
+        describe = #{record.describe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update db_book
+    set id = #{record.id,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      publishing_house = #{record.publishingHouse,jdbcType=VARCHAR},
+      publish_date = #{record.publishDate,jdbcType=TIMESTAMP},
+      average_star = #{record.averageStar,jdbcType=REAL},
+      start1 = #{record.start1,jdbcType=REAL},
+      start2 = #{record.start2,jdbcType=REAL},
+      start3 = #{record.start3,jdbcType=REAL},
+      start4 = #{record.start4,jdbcType=REAL},
+      start5 = #{record.start5,jdbcType=REAL},
+      comment_num = #{record.commentNum,jdbcType=INTEGER},
+      url = #{record.url,jdbcType=VARCHAR},
+      describe = #{record.describe,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wentjiang.crawler.model.douban.Book">
+    update db_book
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="publishingHouse != null">
+        publishing_house = #{publishingHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        publish_date = #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="averageStar != null">
+        average_star = #{averageStar,jdbcType=REAL},
+      </if>
+      <if test="start1 != null">
+        start1 = #{start1,jdbcType=REAL},
+      </if>
+      <if test="start2 != null">
+        start2 = #{start2,jdbcType=REAL},
+      </if>
+      <if test="start3 != null">
+        start3 = #{start3,jdbcType=REAL},
+      </if>
+      <if test="start4 != null">
+        start4 = #{start4,jdbcType=REAL},
+      </if>
+      <if test="start5 != null">
+        start5 = #{start5,jdbcType=REAL},
+      </if>
+      <if test="commentNum != null">
+        comment_num = #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="describe != null">
+        describe = #{describe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wentjiang.crawler.model.douban.Book">
+    update db_book
+    set name = #{name,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      publishing_house = #{publishingHouse,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=TIMESTAMP},
+      average_star = #{averageStar,jdbcType=REAL},
+      start1 = #{start1,jdbcType=REAL},
+      start2 = #{start2,jdbcType=REAL},
+      start3 = #{start3,jdbcType=REAL},
+      start4 = #{start4,jdbcType=REAL},
+      start5 = #{start5,jdbcType=REAL},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      describe = #{describe,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

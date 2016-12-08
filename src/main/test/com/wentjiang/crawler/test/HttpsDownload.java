@@ -1,4 +1,4 @@
-package com.wentjiang.crawler;
+package com.wentjiang.crawler.test;
 
 /**
  * Created by wentjiang on 2016/12/4.

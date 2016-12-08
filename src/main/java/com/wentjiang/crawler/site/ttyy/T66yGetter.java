@@ -1,4 +1,4 @@
-package com.wentjiang.crawler.site.t66y;
+package com.wentjiang.crawler.site.ttyy;
 
 import com.wentjiang.crawler.util.DownloadUtil;
 import org.jsoup.Jsoup;

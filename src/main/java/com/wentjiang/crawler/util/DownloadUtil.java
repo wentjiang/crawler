@@ -2,10 +2,12 @@ package com.wentjiang.crawler.util;
 
 import com.wentjiang.crawler.http.HttpClientFactory;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import java.io.*;
 import java.util.Arrays;
@@ -113,5 +115,26 @@ public class DownloadUtil {
         }
 
         return filePath.toString();
+    }
+    public static void downloadFile(String url,String fileName) throws IOException {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(url);
+        HttpResponse response = httpClient.execute(httpGet);
+        HttpEntity entity = response.getEntity();
+        InputStream in = entity.getContent();
+        File file = new File(fileName);
+        if (!file.exists()){
+            file.mkdir();
+        }
+        FileOutputStream fout = new FileOutputStream(file);
+        int len = -1;
+        byte[] tmp = new byte[1024];
+        while((len = in.read(tmp)) != -1 ){
+            fout.write(tmp,0,len);
+        }
+        fout.flush();
+        fout.close();
+        in.close();
+        httpClient.close();
     }
 }

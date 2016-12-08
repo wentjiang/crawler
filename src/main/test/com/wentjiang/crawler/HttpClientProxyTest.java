@@ -22,7 +22,6 @@ public class HttpClientProxyTest {
 
         HttpHost proxy = new HttpHost("121.31.195.96",8123,"http");
         RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
-String url = "http://t66y.com/thread0806.php?fid=16";
         String url1 = "http://www.wanmei.com";
         HttpGet httpGet = new HttpGet(url1);
         httpGet.setConfig(config);

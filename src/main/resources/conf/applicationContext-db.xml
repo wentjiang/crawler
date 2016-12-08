@@ -35,12 +35,12 @@
 
     <bean id="mySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="typeAliasesPackage" value="com.wanmei.comment.model" />
+        <property name="typeAliasesPackage" value="com.wentjiang.crawler.model" />
         <property name="configLocation" value="classpath:mybatis-config.xml" />
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.wanmei.comment.mapper" />
+        <property name="basePackage" value="com.wentjiang.crawler.mapper" />
         <property name="sqlSessionFactoryBeanName" value="mySqlSessionFactory" />
     </bean>
 
