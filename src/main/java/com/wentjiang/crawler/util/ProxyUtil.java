@@ -1,18 +1,49 @@
 package com.wentjiang.crawler.util;
 
+import com.wentjiang.crawler.http.HttpClientFactory;
 import com.wentjiang.crawler.model.ProxyInfo;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.io.*;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by wentjiang on 2016/12/8.
+ * Created by jiangwentao on 12/9/2016 10:19 AM.
  */
-@Slf4j
-public class IPProxyInfoUtil {
-    //从服务器端请求代理地址
-    public static void getRemoteProxyInfo(){
+public class ProxyUtil {
+    private static List<ProxyInfo> proxies = new LinkedList<>();
+    //判断代理是否可用
+    public static boolean proxyUseable(ProxyInfo proxyInfo){
+        CloseableHttpClient httpClient = HttpClientFactory.getHttpClientPool().getHttpClient();
+        HttpHost proxy = new HttpHost(proxyInfo.getIpAddress(), Integer.parseInt(proxyInfo.getProt()),"http");
+        RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
+        String url1 = "http://httpbin.org/get";
+        HttpGet httpGet = new HttpGet(url1);
+        httpGet.setConfig(config);
+        try {
+            CloseableHttpResponse response = httpClient.execute(httpGet);
+            return response.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    //判断代理是否能翻墙
+    public static boolean proxyBreakWall(ProxyInfo proxyInfo){
+        if (!proxyUseable(proxyInfo)){
+            return false;
+        }
+        //判断代理是否可以翻墙
+        return false;
+    }
+    //通过api获取远程代理地址信息
+    public static void getRemoteProxyInfo() {
         String url = "http://api.xicidaili.com/free2016.txt";
         String file = "proxy.txt";
         try {
@@ -21,9 +52,8 @@ public class IPProxyInfoUtil {
             e.printStackTrace();
         }
     }
-
-    public static void loadProxyInfo(List<ProxyInfo> proxies){
-        //加载代理文件
+    //从文件向内存中载入代理信息
+    public static void loadProxyInfo() {
         FileInputStream fis = null;
         InputStreamReader isr = null;
         BufferedReader br = null; //用于包装InputStreamReader,提高处理性能。因为BufferedReader有缓冲的，而InputStreamReader没有。
@@ -61,4 +91,13 @@ public class IPProxyInfoUtil {
             }
         }
     }
+    //对所有的代理地址检查,去除不能用的代理地址
+    public static void checkProxies(){
+        for (ProxyInfo proxy : proxies){
+            if (!proxyUseable(proxy)){
+                 proxies.remove(proxy);
+            }
+        }
+    }
+
 }

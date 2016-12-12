@@ -21,6 +21,10 @@
         <listener-class>ch.qos.logback.classic.selector.servlet.ContextDetachingSCL</listener-class>
     </listener>
 
+    <listener>
+        <listener-class>com.wentjiang.crawler.listener.AppInitListener</listener-class>
+    </listener>
+
     <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

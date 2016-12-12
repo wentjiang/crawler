@@ -1,5 +1,7 @@
 package com.wentjiang.crawler.listener;
 
+import com.wentjiang.crawler.http.instant.HttpClientPoolIdleMonitor;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -9,9 +11,8 @@ import javax.servlet.ServletContextListener;
 public class AppInitListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        initProxyInfo();
-
-
+        //添加httpclient的监控
+        HttpClientPoolIdleMonitor.init();
     }
 
 
@@ -19,8 +20,7 @@ public class AppInitListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
 
+        HttpClientPoolIdleMonitor.shutdown();
     }
 
-    private void initProxyInfo() {
-    }
 }

@@ -1,7 +1,6 @@
 package com.wentjiang.crawler.model.douban;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class BookExample {
@@ -385,52 +384,62 @@ public class BookExample {
             return (Criteria) this;
         }
 
-        public Criteria andPublishDateEqualTo(Date value) {
+        public Criteria andPublishDateEqualTo(String value) {
             addCriterion("publish_date =", value, "publishDate");
             return (Criteria) this;
         }
 
-        public Criteria andPublishDateNotEqualTo(Date value) {
+        public Criteria andPublishDateNotEqualTo(String value) {
             addCriterion("publish_date <>", value, "publishDate");
             return (Criteria) this;
         }
 
-        public Criteria andPublishDateGreaterThan(Date value) {
+        public Criteria andPublishDateGreaterThan(String value) {
             addCriterion("publish_date >", value, "publishDate");
             return (Criteria) this;
         }
 
-        public Criteria andPublishDateGreaterThanOrEqualTo(Date value) {
+        public Criteria andPublishDateGreaterThanOrEqualTo(String value) {
             addCriterion("publish_date >=", value, "publishDate");
             return (Criteria) this;
         }
 
-        public Criteria andPublishDateLessThan(Date value) {
+        public Criteria andPublishDateLessThan(String value) {
             addCriterion("publish_date <", value, "publishDate");
             return (Criteria) this;
         }
 
-        public Criteria andPublishDateLessThanOrEqualTo(Date value) {
+        public Criteria andPublishDateLessThanOrEqualTo(String value) {
             addCriterion("publish_date <=", value, "publishDate");
             return (Criteria) this;
         }
 
-        public Criteria andPublishDateIn(List<Date> values) {
+        public Criteria andPublishDateLike(String value) {
+            addCriterion("publish_date like", value, "publishDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishDateNotLike(String value) {
+            addCriterion("publish_date not like", value, "publishDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andPublishDateIn(List<String> values) {
             addCriterion("publish_date in", values, "publishDate");
             return (Criteria) this;
         }
 
-        public Criteria andPublishDateNotIn(List<Date> values) {
+        public Criteria andPublishDateNotIn(List<String> values) {
             addCriterion("publish_date not in", values, "publishDate");
             return (Criteria) this;
         }
 
-        public Criteria andPublishDateBetween(Date value1, Date value2) {
+        public Criteria andPublishDateBetween(String value1, String value2) {
             addCriterion("publish_date between", value1, value2, "publishDate");
             return (Criteria) this;
         }
 
-        public Criteria andPublishDateNotBetween(Date value1, Date value2) {
+        public Criteria andPublishDateNotBetween(String value1, String value2) {
             addCriterion("publish_date not between", value1, value2, "publishDate");
             return (Criteria) this;
         }
@@ -992,6 +1001,66 @@ public class BookExample {
 
         public Criteria andDescribeNotBetween(String value1, String value2) {
             addCriterion("describe not between", value1, value2, "describe");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdIsNull() {
+            addCriterion("book_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdIsNotNull() {
+            addCriterion("book_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdEqualTo(Long value) {
+            addCriterion("book_id =", value, "bookId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdNotEqualTo(Long value) {
+            addCriterion("book_id <>", value, "bookId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdGreaterThan(Long value) {
+            addCriterion("book_id >", value, "bookId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("book_id >=", value, "bookId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdLessThan(Long value) {
+            addCriterion("book_id <", value, "bookId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdLessThanOrEqualTo(Long value) {
+            addCriterion("book_id <=", value, "bookId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdIn(List<Long> values) {
+            addCriterion("book_id in", values, "bookId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdNotIn(List<Long> values) {
+            addCriterion("book_id not in", values, "bookId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdBetween(Long value1, Long value2) {
+            addCriterion("book_id between", value1, value2, "bookId");
+            return (Criteria) this;
+        }
+
+        public Criteria andBookIdNotBetween(Long value1, Long value2) {
+            addCriterion("book_id not between", value1, value2, "bookId");
             return (Criteria) this;
         }
     }

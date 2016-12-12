@@ -9,19 +9,19 @@ public class Queue {
     /**
      * 定义一个队列，使用LinkedList实现
      */
-    private LinkedList<Object> queue = new LinkedList<Object>(); // 入队列
+    private LinkedList<String> queue = new LinkedList<>(); // 入队列
 
     /**
      * 将t加入到队列中
      */
-    public void enQueue(Object t) {
+    public void enQueue(String t) {
         queue.addLast(t);
     }
 
     /**
      * 移除队列中的第一项并将其返回
      */
-    public Object deQueue() {
+    public String deQueue() {
         return queue.removeFirst();
     }
 

@@ -1,7 +1,5 @@
 package com.wentjiang.crawler.model.douban;
 
-import java.util.Date;
-
 public class Book {
     private Long id;
 
@@ -11,7 +9,7 @@ public class Book {
 
     private String publishingHouse;
 
-    private Date publishDate;
+    private String publishDate;
 
     private Float averageStar;
 
@@ -30,6 +28,8 @@ public class Book {
     private String url;
 
     private String describe;
+
+    private Long bookId;
 
     public Long getId() {
         return id;
@@ -63,12 +63,12 @@ public class Book {
         this.publishingHouse = publishingHouse == null ? null : publishingHouse.trim();
     }
 
-    public Date getPublishDate() {
+    public String getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate == null ? null : publishDate.trim();
     }
 
     public Float getAverageStar() {
@@ -141,5 +141,13 @@ public class Book {
 
     public void setDescribe(String describe) {
         this.describe = describe == null ? null : describe.trim();
+    }
+
+    public Long getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 }

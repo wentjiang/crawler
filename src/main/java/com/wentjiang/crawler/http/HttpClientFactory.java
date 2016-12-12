@@ -28,8 +28,8 @@ public class HttpClientFactory {
     private static String HTTPS_CERT_PASSWORD = null;
     private static int KEEP_ALIVE_MILLIS = 30000;
 
-    private static int CONNECT_TIMEOUT = 1000;
-    private static int SOCKET_TIMEOUT = 1000;
+    private static int CONNECT_TIMEOUT = 10000;
+    private static int SOCKET_TIMEOUT = 10000;
     public HttpClientFactory() {
     }
 
